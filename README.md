@@ -7,7 +7,7 @@ Builds [GLFW](https://www.glfw.org) as a library to add to your Swift Package. A
 SwiftPM doesn't support unsafe flags with semantic versioned packages, so add this to your dependecies in `Package.swift`:
 
 ```swift
-.package(url: "https://github.com/thepotatoking55/CGLFW3.git", branch: "main")
+.package(url: "https://github.com/IIMrFreemanII/CGLFW3.git", branch: "master")
 ```
 
 From there, you can just import it with `import CGLFW3` and use it like normal.
