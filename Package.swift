@@ -3,7 +3,13 @@
 
 import PackageDescription
 
-var cSettings: [CSetting] = [.unsafeFlags(["-fno-objc-arc"])]
+extension Array where Element == String {
+    func sourcify() -> [String] {
+        return map { "src/" + $0 }
+    }
+}
+
+var cSettings: [CSetting] = []
 
 var sources: [String] = [
     "internal.h", "platform.h", "mappings.h",
@@ -26,9 +32,9 @@ sources += [
 ]
 
 cSettings += [
-    .define("GLFW_EXPOSE_NATIVE_COCOA", .when(platforms: [.macOS])),
-    .define("GLFW_EXPOSE_NATIVE_NSGL", .when(platforms: [.macOS])),
-    .define("_GLFW_COCOA", .when(platforms: [.macOS]))
+    .define("GLFW_EXPOSE_NATIVE_COCOA"),
+    .define("GLFW_EXPOSE_NATIVE_NSGL"),
+    .define("_GLFW_COCOA")
 ]
 #elseif os(Windows)
 // Win32/WGL
@@ -44,9 +50,9 @@ sources += [
 ]
 
 cSettings += [
-    .define("GLFW_EXPOSE_NATIVE_WIN32", .when(platforms: [.windows])),
-    .define("GLFW_EXPOSE_NATIVE_WGL", .when(platforms: [.windows])),
-    .define("_GLFW_WIN32", .when(platforms: [.windows]))
+    .define("GLFW_EXPOSE_NATIVE_WIN32"),
+    .define("GLFW_EXPOSE_NATIVE_WGL"),
+    .define("_GLFW_WIN32")
 ]
 #else
 // Linux/X11
@@ -64,9 +70,9 @@ sources += [
 ]
 
 cSettings += [
-    .define("GLFW_EXPOSE_NATIVE_X11", .when(platforms: [.linux])),
-    .define("_GLFW_X11", .when(platforms: [.linux])),
-    .define("_DEFAULT_SOURCE", .when(platforms: [.linux]))
+    .define("GLFW_EXPOSE_NATIVE_X11"),
+    .define("_GLFW_X11"),
+    .define("_DEFAULT_SOURCE")
 ]
 #endif
 
@@ -84,10 +90,7 @@ let package = Package(
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
             name: "CGLFW3",
-            exclude: [
-                "CMake",
-                "deps", "docs", "examples", "tests",
-            ],
+            sources: sources.sourcify() + ["include"],
             publicHeadersPath: "include",
             cSettings: cSettings
         ),
