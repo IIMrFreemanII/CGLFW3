@@ -2,8 +2,6 @@
 
 Builds [GLFW](https://www.glfw.org) as a library to add to your Swift Package. As of writing, it's currently updated to the [latest commit](https://github.com/glfw/glfw/commit/955fbd9d265fa95adf9cb94896eb9a516aa50420) for GLFW 3.4.
 
-This package can work on its own, but it was created as a base for [SwiftGLFW](https://github.com/thepotatoking55/SwiftGLFW).
-
 ## Getting Started
 
 SwiftPM doesn't support unsafe flags with semantic versioned packages, so add this to your dependecies in `Package.swift`:
