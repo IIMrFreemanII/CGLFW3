@@ -1,4 +1,4 @@
-// swift-tools-version: 5.9
+// swift-tools-version: 5.10
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -34,7 +34,9 @@ sources += [
 cSettings += [
     .define("GLFW_EXPOSE_NATIVE_COCOA"),
     .define("GLFW_EXPOSE_NATIVE_NSGL"),
-    .define("_GLFW_COCOA")
+    .define("_GLFW_COCOA"),
+    // disable automatic reference counting
+    .unsafeFlags(["-fno-objc-arc"])
 ]
 #elseif os(Windows)
 // Win32/WGL
